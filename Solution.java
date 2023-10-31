@@ -1,86 +1,29 @@
 
 public class Solution {
+    private int depthLimit;
+    private int comboCount;
 
-    public Solution() {
+    public Solution(int depthLimit) {
+        this.depthLimit = depthLimit;
+        this.comboCount = 0;
     }
 
-    public int solution(Tree T) {
-        int counter = 0;
+    public int solution(Tree tree) {
+        checkNodes(tree, 0);
+        return this.comboCount;
+    }
 
-        // start at 1st level, 1/3 complete
-
-        // check 2nd level left
-        if (T.l != null) {
-            // 2/3 complete
-
-            // check 3rd level left
-            if (T.l.l != null) {
-                // 3/3 complete
-                counter++;
-                // check 4th level left
-                if (T.l.l.l != null) {
-                    // another possible combination
-                    counter++;
-                }
-                // check 4th level right
-                if (T.l.l.r != null) {
-                    // another possible combination
-                    counter++;
-                }
+    private void checkNodes(Tree tree, int level) {
+        if (level <= depthLimit) {
+            if (level > 1) {
+                this.comboCount++;
             }
-            // check 3rd level right
-            if (T.l.r != null) {
-                // 3/3 complete
-                counter++;
-                // check 4th level left
-                if (T.l.r.l != null) {
-                    // another possible combination
-                    counter++;
-                }
-                // check 4th level right
-                if (T.l.r.r != null) {
-                    // another possible combination
-                    counter++;
-                }
+            if (tree.l != null) {
+                checkNodes(tree.l, level + 1);
+            }
+            if (tree.r != null) {
+                checkNodes(tree.r, level + 1);
             }
         }
-
-        // check 2nd level right
-        if (T.r != null) {
-            // 2/3 complete
-
-            // check 3rd level left
-            if (T.r.l != null) {
-                // 3/3 complete
-                counter++;
-                // check 4th level left
-                if (T.r.l.l != null) {
-                    // another possible combination
-                    counter++;
-                }
-                // check 4th level right
-                if (T.r.l.r != null) {
-                    // another possible combination
-                    counter++;
-                }
-            }
-            // check 3rd level right
-            if (T.r.r != null) {
-                counter++;
-                // check 4th level left
-                if (T.r.r.l != null) {
-                    // another possible combination
-                    counter++;
-                }
-                // check 4th level right
-                if (T.r.r.r != null) {
-                    // another possible combination
-                    counter++;
-                }
-            }
-        }
-
-        return counter;
-
     }
 }
